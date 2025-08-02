@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Freelanxo - Freelanxo  | Creative Developer & Designer</title>
+  <title>Freelanxo - Shiva Mani | Creative Developer & Designer</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     /* CSS Variables */
@@ -267,6 +267,13 @@
       opacity: 1;
       transform: translateY(0);
     }
+    
+    /* FIX: Make initial hero content visible by default */
+    #home h1, #home p, #home .btn-container {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
 
     .btn {
       padding: 1rem 2rem;
@@ -693,7 +700,6 @@
   </style>
 </head>
 <body>
-  <!-- Glitter Canvas -->
   <canvas id="glitter-canvas"></canvas>
   <div id="blob-bg">
     <div class="blob"></div>
@@ -701,7 +707,6 @@
     <div class="blob"></div>
   </div>
 
-  <!-- Scroll to top button -->
   <div class="scroll-top" id="scrollTop">
     <i class="fas fa-arrow-up"></i>
   </div>
@@ -729,7 +734,6 @@
       </div>
     </section>
 
-    <!-- SERVICES SECTION -->
     <section id="services">
       <h2 class="section-title">Services</h2>
       <div class="grid" id="services-grid">
@@ -757,8 +761,6 @@
           <p>Responsive websites, landing pages, and UI integrations.</p>
           <a href="#contact" class="btn secondary">Get Service</a>
         </div>
-
-        <!-- Hidden Services -->
         <div class="card service-card extra-service" style="display: none;">
           <i class="fas fa-briefcase"></i>
           <h3>Portfolio Websites</h3>
@@ -805,9 +807,8 @@
       <button class="btn toggle-btn" onclick="toggleServices()">View All Services</button>
     </section>
 
-    <!-- PROJECTS SECTION -->
     <section id="projects">
-      <h2 class="section-title">Projects</h2>
+        <h2 class="section-title">Projects</h2>
       <div class="grid" id="projects-grid">
         <div class="card project-card">
           <h3>Project Base Editing</h3>
@@ -833,8 +834,6 @@
           <p>Completed video editing internship and training program.</p>
           <a href="#" class="btn secondary">Learn More</a>
         </div>
-
-        <!-- Hidden Projects -->
         <div class="card project-card extra-project" style="display: none;">
           <h3>Projects and Web Dev</h3>
           <p class="project-meta">GitHub Portfolio</p>
@@ -851,10 +850,9 @@
       <button class="btn toggle-btn" onclick="toggleProjects()">View All Projects</button>
     </section>
 
-    <!-- CONTACT -->
     <section id="contact">
       <h2 class="section-title">Contact Me</h2>
-      <form id="contact-form">
+      <form action="https://getform.io/f/axoydyqb" method="POST">
         <div class="form-group">
           <label for="name">Your Name</label>
           <input type="text" id="name" name="name" placeholder="John Doe" required />
@@ -918,12 +916,12 @@
       const services = document.querySelectorAll('.extra-service');
       const button = document.querySelector('#services .toggle-btn');
       
+      const isHidden = services[0].style.display === 'none' || services[0].style.display === '';
       services.forEach(card => {
-        card.style.display = card.style.display === 'none' ? 'flex' : 'none';
+        card.style.display = isHidden ? 'flex' : 'none';
       });
       
-      button.textContent = services[0].style.display === 'none' ? 
-        'View All Services' : 'Show Less Services';
+      button.textContent = isHidden ? 'Show Less Services' : 'View All Services';
     }
 
     // Toggle projects
@@ -931,12 +929,12 @@
       const projects = document.querySelectorAll('.extra-project');
       const button = document.querySelector('#projects .toggle-btn');
       
+      const isHidden = projects[0].style.display === 'none' || projects[0].style.display === '';
       projects.forEach(card => {
-        card.style.display = card.style.display === 'none' ? 'flex' : 'none';
+        card.style.display = isHidden ? 'flex' : 'none';
       });
       
-      button.textContent = projects[0].style.display === 'none' ? 
-        'View All Projects' : 'Show Less Projects';
+      button.textContent = isHidden ? 'Show Less Projects' : 'View All Projects';
     }
 
     // Scroll to top functionality
@@ -955,17 +953,6 @@
         top: 0,
         behavior: 'smooth'
       });
-    });
-
-    // Form submission (fixed)
-    document.getElementById("contact-form").addEventListener("submit", function(e) {
-      e.preventDefault();
-      
-      // Show a success message
-      alert("Thank you for your message! I'll get back to you soon.");
-      
-      // Reset the form
-      this.reset();
     });
 
     // Glitter Canvas Effect
@@ -1035,18 +1022,16 @@
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
+          observer.unobserve(entry.target); // Stop observing once visible
         }
       });
     }, {
       threshold: 0.1
     });
 
-    // Observe all elements with animation classes
+    // Observe all elements that need animation
     const elementsToAnimate = [
       '.section-title', 
-      '#hero-title', 
-      '#hero-subtitle', 
-      '.hero .btn-container', 
       '.card', 
       '.toggle-btn', 
       '.form-group', 
