@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Freelanxo - Shiva Mani | Creative Developer & Designer</title>
+  <title>Freelanxo - Creative Developer & Designer</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     /* CSS Variables */
@@ -16,6 +16,8 @@
       --gray: #222222;
       --card-bg: rgba(255, 255, 255, 0.05);
       --transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+      --limited-color-1: #00c6ff;
+      --limited-color-2: #0072ff;
     }
 
     * {
@@ -328,17 +330,31 @@
       color: var(--dark);
     }
 
-    /* Services Section */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2.5rem;
-      width: 100%;
-      max-width: 1400px;
-      margin: 0 auto;
+    /* LIMITED TIME OFFER CARDS - BLUE ANIMATIONS */
+    .limited-badge {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: linear-gradient(135deg, var(--limited-color-1), var(--limited-color-2));
+      color: white;
+      font-weight: bold;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      z-index: 10;
+      box-shadow: 0 0 15px rgba(0, 198, 255, 0.5);
+      animation: pulse 2s infinite;
     }
-
-    .card {
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(0, 198, 255, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(0, 198, 255, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 198, 255, 0); }
+    }
+    
+    /* REGULAR SERVICE CARDS - GREEN ANIMATIONS */
+    .service-card {
+      position: relative;
       background: var(--card-bg);
       padding: 2rem;
       border-radius: 1rem;
@@ -349,7 +365,6 @@
       gap: 1.5rem;
       transition: var(--transition);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      position: relative;
       overflow: hidden;
       z-index: 1;
       opacity: 0;
@@ -357,17 +372,12 @@
       transition: opacity 0.8s ease, transform 0.8s ease, box-shadow 0.3s ease;
     }
 
-    .card.visible {
+    .service-card.visible {
       opacity: 1;
       transform: translateY(0);
     }
 
-    .card:nth-child(1) { transition-delay: 0.1s; }
-    .card:nth-child(2) { transition-delay: 0.2s; }
-    .card:nth-child(3) { transition-delay: 0.3s; }
-    .card:nth-child(4) { transition-delay: 0.4s; }
-
-    .card:before {
+    .service-card:before {
       content: '';
       position: absolute;
       top: 0;
@@ -381,28 +391,182 @@
       z-index: -1;
     }
 
-    .card:hover {
+    .service-card:hover {
       transform: translateY(-10px) scale(1.03);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 15px 30px rgba(0, 255, 153, 0.3);
       border-color: rgba(0, 255, 153, 0.3);
     }
 
-    .card:hover:before {
+    .service-card:hover:before {
       transform: scaleX(1);
     }
 
-    .card i {
+    .service-card i {
       font-size: 3rem;
       color: var(--primary);
     }
 
-    .card h3 {
+    .service-card h3 {
       font-size: 1.5rem;
     }
 
-    .card p {
+    .service-card p {
       color: rgba(255, 255, 255, 0.7);
       line-height: 1.6;
+    }
+
+    /* PROJECT CARDS - GREEN ANIMATIONS */
+    .project-card {
+      position: relative;
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 1rem;
+      backdrop-filter: blur(10px);
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      transition: var(--transition);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      z-index: 1;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.8s ease, transform 0.8s ease, box-shadow 0.3s ease;
+    }
+
+    .project-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .project-card:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--primary);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: var(--transition);
+      z-index: -1;
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 0 15px 30px rgba(0, 255, 153, 0.3);
+      border-color: rgba(0, 255, 153, 0.3);
+    }
+
+    .project-card:hover:before {
+      transform: scaleX(1);
+    }
+
+    .project-card .project-meta {
+      color: var(--primary);
+      font-weight: 500;
+      margin: 0.5rem 0;
+      font-size: 0.9rem;
+    }
+
+    /* LIMITED TIME SERVICE CARDS - BLUE ANIMATIONS */
+    .limited-card {
+      position: relative;
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 1rem;
+      backdrop-filter: blur(10px);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      transition: var(--transition);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      z-index: 1;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.8s ease, transform 0.8s ease, box-shadow 0.3s ease;
+    }
+
+    .limited-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .limited-card:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(135deg, var(--limited-color-1), var(--limited-color-2));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: var(--transition);
+      z-index: -1;
+    }
+
+    .limited-card:hover {
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 0 15px 30px rgba(0, 114, 255, 0.3);
+      border-color: rgba(0, 198, 255, 0.3);
+    }
+
+    .limited-card:hover:before {
+      transform: scaleX(1);
+    }
+
+    .limited-card i {
+      font-size: 3rem;
+      color: var(--limited-color-1);
+      transition: var(--transition);
+    }
+
+    .limited-card h3 {
+      font-size: 1.5rem;
+      color: var(--limited-color-1);
+      transition: var(--transition);
+    }
+
+    .limited-card p {
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.6;
+    }
+
+    .limited-card .btn.secondary {
+      color: var(--limited-color-1);
+      border-color: var(--limited-color-1);
+      transition: var(--transition);
+    }
+    
+    .limited-card .btn.secondary:before {
+      background: linear-gradient(135deg, var(--limited-color-1), var(--limited-color-2));
+    }
+    
+    .limited-card .btn.secondary:hover {
+      color: white;
+      border-color: transparent;
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 114, 255, 0.4);
+    }
+    
+    .limited-card:hover i,
+    .limited-card:hover h3 {
+      color: var(--limited-color-2);
+    }
+
+    /* Grid and other common styles */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
     .toggle-btn {
@@ -423,18 +587,6 @@
     .toggle-btn:hover {
       background: var(--primary);
       color: var(--dark);
-    }
-
-    /* Projects Section */
-    .project-card {
-      text-align: left;
-    }
-
-    .project-card .project-meta {
-      color: var(--primary);
-      font-weight: 500;
-      margin: 0.5rem 0;
-      font-size: 0.9rem;
     }
 
     /* Contact Section */
@@ -689,7 +841,9 @@
         font-size: 2rem;
       }
       
-      .card {
+      .service-card,
+      .project-card,
+      .limited-card {
         padding: 1.5rem;
       }
       
@@ -719,6 +873,7 @@
     <div class="hamburger" onclick="toggleMenu()">☰</div>
     <nav id="nav">
       <a href="#home">Home</a>
+      <a href="#limited-services">Limited Offers</a>
       <a href="#services">Services</a>
       <a href="#projects">Projects</a>
       <a href="#contact">Contact</a>
@@ -727,77 +882,133 @@
 
   <main>
     <section id="home" class="hero">
-      <h1 id="hero-title">Shiva Mani</h1>
-      <p id="hero-subtitle">A Creative Developer & Designer where <span class="highlight">Solution isn't a service</span> — it's our signature.</p>
+      <h1 id="hero-title">Freelanxo</h1>
+      <p id="hero-subtitle"><span class="highlight">Solution isn't a service</span> — it's our signature.</p>
       <div class="btn-container">
         <a href="#contact" class="btn">Get Service</a>
+      </div>
+    </section>
+
+    <!-- Limited Time Services Section -->
+    <section id="limited-services">
+      <h2 class="section-title">Limited Time Services</h2>
+      <div class="grid">
+        <!-- New Card 1: Get Started -->
+        <div class="limited-card">
+          <div class="limited-badge">Limited Time!</div>
+          <i class="fas fa-play-circle"></i>
+          <h3>Get Started</h3>
+          <p>Professional setup<br>->LinkedIn<br>->GitHub<br>->1 week of content strategy & posting.</p>
+          <a href="#contact" class="btn secondary">Claim Offer</a>
+        </div>
+        
+        <!-- New Card 2: Automation -->
+        <div class="limited-card">
+          <div class="limited-badge">Limited Time!</div>
+          <i class="fas fa-robot"></i>
+          <h3>Automation</h3>
+          <p>Cut your workload in half with custom automation solutions for repetitive tasks and workflows.</p>
+          <a href="#contact" class="btn secondary">Claim Offer</a>
+        </div>
+        
+        <!-- New Card 3: PPT -->
+        <div class="limited-card">
+          <div class="limited-badge">Limited Time!</div>
+          <i class="fas fa-file-powerpoint"></i>
+          <h3>Professional Presentations</h3>
+          <p>Custom PowerPoint presentations tailored for students, professionals, or business pitches.</p>
+          <a href="#contact" class="btn secondary">Claim Offer</a>
+        </div>
+        
+        <!-- Original Cards -->
+        <div class="limited-card">
+          <div class="limited-badge">Limited Time!</div>
+          <i class="fas fa-gift"></i>
+          <h3>Summer Special Web Package</h3>
+          <p>Get a complete website with 3 revisions and 1 year of hosting at a special summer discount.</p>
+          <a href="#contact" class="btn secondary">Claim Offer</a>
+        </div>
+        <div class="limited-card">
+          <div class="limited-badge">Limited Time!</div>
+          <i class="fas fa-bolt"></i>
+          <h3>Express Video Editing</h3>
+          <p>24-hour turnaround for video projects at a special discounted rate. Limited slots available!</p>
+          <a href="#contact" class="btn secondary">Claim Offer</a>
+        </div>
+        <div class="limited-card">
+          <div class="limited-badge">Limited Time!</div>
+          <i class="fas fa-star"></i>
+          <h3>Brand Identity Bundle</h3>
+          <p>Logo + Business Card + Social Media Kit at 25% off. Perfect for new businesses.</p>
+          <a href="#contact" class="btn secondary">Claim Offer</a>
+        </div>
       </div>
     </section>
 
     <section id="services">
       <h2 class="section-title">Services</h2>
       <div class="grid" id="services-grid">
-        <div class="card service-card">
+        <div class="service-card">
           <i class="fas fa-video"></i>
           <h3>Video Editing</h3>
           <p>Professional video editing for YouTube, reels, and promos.</p>
           <a href="#contact" class="btn secondary">Get Service</a>
         </div>
-        <div class="card service-card">
+        <div class="service-card">
           <i class="fas fa-paint-brush"></i>
           <h3>Graphics Designing</h3>
           <p>Logos, posters, thumbnails, and other graphic assets.</p>
           <a href="#contact" class="btn secondary">Get Service</a>
         </div>
-        <div class="card service-card">
+        <div class="service-card">
           <i class="fas fa-ad"></i>
           <h3>Promotional Videos / Ads</h3>
           <p>Engaging promotional content for businesses and events.</p>
           <a href="#contact" class="btn secondary">Get Service</a>
         </div>
-        <div class="card service-card">
+        <div class="service-card">
           <i class="fas fa-code"></i>
           <h3>Web Development</h3>
           <p>Responsive websites, landing pages, and UI integrations.</p>
           <a href="#contact" class="btn secondary">Get Service</a>
         </div>
-        <div class="card service-card extra-service" style="display: none;">
+        <div class="service-card extra-service" style="display: none;">
           <i class="fas fa-briefcase"></i>
           <h3>Portfolio Websites</h3>
           <p>Personal portfolio sites to showcase your skills and experience.</p>
           <a href="#contact" class="btn secondary">Get Service</a>
         </div>
-        <div class="card service-card extra-service" style="display: none;">
+        <div class="service-card extra-service" style="display: none;">
           <i class="fas fa-project-diagram"></i>
           <h3>Projects</h3>
           <p>Freelance projects built with professional standards.</p>
           <a href="#contact" class="btn secondary">Get Service</a>
         </div>
-        <div class="card service-card extra-service" style="display: none;">
+        <div class="service-card extra-service" style="display: none;">
           <i class="fas fa-laptop-code"></i>
           <h3>Frontend Websites</h3>
           <p>Beautiful and performant frontend solutions for all platforms.</p>
           <a href="#contact" class="btn secondary">Get Service</a>
         </div>
-        <div class="card service-card extra-service" style="display: none;">
+        <div class="service-card extra-service" style="display: none;">
           <i class="fas fa-graduation-cap"></i>
           <h3>Internship Support & Mentorship</h3>
           <p>Guidance and help for internships and creative career growth.</p>
           <a href="#contact" class="btn secondary">Get Service</a>
         </div>
-        <div class="card service-card extra-service" style="display: none;">
+        <div class="service-card extra-service" style="display: none;">
           <i class="fas fa-camera-retro"></i>
           <h3>Photo Editing</h3>
           <p>Retouching, background removal, and visual enhancements.</p>
           <a href="#contact" class="btn secondary">Get Service</a>
         </div>
-        <div class="card service-card extra-service" style="display: none;">
+        <div class="service-card extra-service" style="display: none;">
           <i class="fas fa-palette"></i>
           <h3>Colour Grading</h3>
           <p>High-quality video color corrections and grading styles.</p>
           <a href="#contact" class="btn secondary">Get Service</a>
         </div>
-        <div class="card service-card extra-service" style="display: none;">
+        <div class="service-card extra-service" style="display: none;">
           <i class="fas fa-pen-fancy"></i>
           <h3>Content Writing</h3>
           <p>SEO-based content writing for blogs, portfolios, and more.</p>
@@ -810,41 +1021,41 @@
     <section id="projects">
         <h2 class="section-title">Projects</h2>
       <div class="grid" id="projects-grid">
-        <div class="card project-card">
+        <div class="project-card">
           <h3>Project Base Editing</h3>
           <p class="project-meta">with Ajay — 1yr 2mon - present</p>
           <p>Professional video editing for long-term projects with consistent quality.</p>
-          <a href="#" class="btn secondary">Get Info</a>
+          <a href="https://www.linkedin.com/in/shiva-mani-572b25317" class="btn secondary">Get Info</a>
         </div>
-        <div class="card project-card">
+        <div class="project-card">
           <h3>Promotional Video</h3>
           <p class="project-meta">SM ROCKS</p>
           <p>Edited a commercial promotional video with high engagement metrics.</p>
           <a href="https://youtu.be/twDF6wCZrtw?si=1T4oStklaM1JYgs5" class="btn secondary" target="_blank">View Project</a>
         </div>
-        <div class="card project-card">
+        <div class="project-card">
           <h3>Graphic Designing</h3>
           <p class="project-meta">Various Clients</p>
           <p>Created logos, thumbnails, posters and other graphic assets.</p>
-          <a href="#" class="btn secondary">View Portfolio</a>
+          <a href="https://www.linkedin.com/in/shiva-mani-572b25317" class="btn secondary">View Portfolio</a>
         </div>
-        <div class="card project-card">
+        <div class="project-card">
           <h3>Internship & Training</h3>
           <p class="project-meta">JetReal Agency</p>
           <p>Completed video editing internship and training program.</p>
-          <a href="#" class="btn secondary">Learn More</a>
+          <a href="https://www.linkedin.com/in/shiva-mani-572b25317" class="btn secondary">Learn More</a>
         </div>
-        <div class="card project-card extra-project" style="display: none;">
+        <div class="project-card extra-project" style="display: none;">
           <h3>Projects and Web Dev</h3>
           <p class="project-meta">GitHub Portfolio</p>
           <p>Freelance web development projects showcasing modern techniques.</p>
-          <a href="#" class="btn secondary">View Projects</a>
+          <a href="https://www.linkedin.com/in/shiva-mani-572b25317" class="btn secondary">View Projects</a>
         </div>
-        <div class="card project-card extra-project" style="display: none;">
+        <div class="project-card extra-project" style="display: none;">
           <h3>Portfolio</h3>
           <p class="project-meta">Client Websites</p>
           <p>Professional portfolio websites for creative professionals.</p>
-          <a href="#" class="btn secondary">View Examples</a>
+          <a href="https://www.linkedin.com/in/shiva-mani-572b25317" class="btn secondary">View Examples</a>
         </div>
       </div>
       <button class="btn toggle-btn" onclick="toggleProjects()">View All Projects</button>
@@ -1032,7 +1243,9 @@
     // Observe all elements that need animation
     const elementsToAnimate = [
       '.section-title', 
-      '.card', 
+      '.service-card', 
+      '.project-card', 
+      '.limited-card', 
       '.toggle-btn', 
       '.form-group', 
       'footer', 
